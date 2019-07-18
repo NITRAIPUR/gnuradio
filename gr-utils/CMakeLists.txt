@@ -50,5 +50,6 @@ if(ENABLE_GR_UTILS)
 ########################################################################
 add_subdirectory(python/utils)
 add_subdirectory(python/modtool)
+add_subdirectory(python/blocktool)
 
 endif(ENABLE_GR_UTILS)
