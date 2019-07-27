@@ -1,41 +1,36 @@
 id: analog_pll_refout_cc
-label: PLL Ref Out
-flags: [ python, cpp ]
-
-parameters:
--   id: w
-    label: Loop Bandwidth
-    dtype: real
--   id: max_freq
-    label: Max Freq
-    dtype: real
--   id: min_freq
-    label: Min Freq
-    dtype: real
-
-inputs:
--   domain: stream
-    dtype: complex
-
-outputs:
--   domain: stream
-    dtype: complex
-
+label: PLL REFOUT
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: analog.pll_refout_cc(${w}, ${max_freq}, ${min_freq})
-    callbacks:
-    - set_loop_bandwidth(${w})
-    - set_max_freq(${max_freq})
-    - set_min_freq(${min_freq})
-
+  imports: from gnuradio import analog
+  make: analog.pll_refout_cc()
+inputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+outputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
 cpp_templates:
-    includes: ['#include <gnuradio/analog/pll_refout_cc.h>']
-    make: 'this->${id} = analog::pll_refout_cc::make(${w}, ${max_freq}, ${min_freq});'
-    callbacks:
-    - set_loop_bandwidth(${w})
-    - set_max_freq(${max_freq})
-    - set_min_freq(${min_freq})
-    link: ['gnuradio-analog']
-
+  includes: '#include <gnuradio/analog/pll_refout_cc.h>'
+  declartions: analog::pll_refout_cc::sptr ${id}
+  make: this->${id} = analog::pll_refout_cc::make()
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief Implements a PLL which locks to the input frequency and outputs
+  a carrier\n     * \\ingroup synchronizers_blk\n     *\n     * \\details\n     *
+  Input stream 0: complex\n     * Output stream 0: complex\n     *\n     * This PLL
+  locks onto a [possibly noisy] reference carrier on the\n     * input and outputs
+  a clean version which is phase and frequency\n     * aligned to it.\n     *\n     *
+  All settings max_freq and min_freq are in terms of radians per\n     * sample, NOT
+  HERTZ. The loop bandwidth determines the lock range\n     * and should be set around
+  pi/200 -- 2pi/100.  \\sa\n     * pll_freqdet_cf, pll_carriertracking_cc\n     */"
+- // gr::analog::pll_refout_cc::sptr
+- "/* \\brief Make PLL block that outputs the tracked carrier signal.\n       *\n
+  \      * \\param loop_bw: control loop's bandwidth parameter.\n       * \\param
+  max_freq: maximum (normalized) frequency PLL will lock to.\n       * \\param min_freq:
+  minimum (normalized) frequency PLL will lock to.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_PLL_REFOUT_CC_H */
 file_format: 1

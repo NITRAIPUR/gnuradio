@@ -1,0 +1,66 @@
+id: analog_pwr_squelch_cc
+label: PWR SQUELCH
+category: '[Analog]'
+flags: '[python, cpp]'
+templates:
+  imports: from gnuradio import analog
+  make: analog.pwr_squelch_cc(${squelch_range}, ${threshold}, ${ramp}, ${gate}, ${unmuted})
+  callbacks: !!python/tuple
+  - set_threshold(${db})
+  - set_alpha(${alpha})
+  - set_ramp(${ramp})
+  - set_gate(${gate})
+parameters:
+- id: squelch_range
+  label: Squelch_range
+  dtype: std::vector<float, std::allocator<float> >
+  read_only: true
+- id: threshold
+  label: Threshold
+  dtype: double
+  read_only: true
+- id: ramp
+  label: Ramp
+  dtype: int
+  read_only: false
+- id: gate
+  label: Gate
+  dtype: bool
+  read_only: false
+- id: unmuted
+  label: Unmuted
+  dtype: bool
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+outputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+cpp_templates:
+  includes: '#include <gnuradio/analog/pwr_squelch_cc.h>'
+  declartions: analog::pwr_squelch_cc::sptr ${id}
+  make: this->${id} = analog::pwr_squelch_cc::make(${squelch_range}, ${threshold},
+    ${ramp}, ${gate}, ${unmuted})
+  callbacks: !!python/tuple
+  - set_threshold(${db})
+  - set_alpha(${alpha})
+  - set_ramp(${ramp})
+  - set_gate(${gate})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief gate or zero output when input power below threshold\n     *
+  \\ingroup level_controllers_blk\n     */"
+- // gr::analog::pwr_squelch_cc::sptr
+- "/*!\n       * \\brief Make power-based squelch block.\n       *\n       * \\param
+  db threshold (in dB) for power squelch\n       * \\param alpha Gain of averaging
+  filter. Defaults to 0.0001.\n       * \\param ramp sets response characteristic.
+  Defaults to 0.\n       * \\param gate if true, no output if no squelch tone.\n       *
+  \            if false, output 0's if no squelch tone (default).\n       *\n       *
+  The block will emit a tag with the key pmt::intern(\"squelch_sob\")\n       * with
+  the value of pmt::PMT_NIL on the first item it passes, and with\n       * the key
+  pmt::intern(\"squelch:eob\") on the last item it passes.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_PWR_SQUELCH_CC_H */
+file_format: 1

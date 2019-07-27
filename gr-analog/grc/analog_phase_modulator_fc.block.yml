@@ -1,31 +1,44 @@
 id: analog_phase_modulator_fc
-label: Phase Mod
-flags: [ python, cpp ]
-
-parameters:
--   id: sensitivity
-    label: Sensitivity
-    dtype: real
-
-inputs:
--   domain: stream
-    dtype: float
-
-outputs:
--   domain: stream
-    dtype: complex
-
+label: PHASE MODULATOR
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: analog.phase_modulator_fc(${sensitivity})
-    callbacks:
-    - set_sensitivity(${sensitivity})
-
+  imports: from gnuradio import analog
+  make: analog.phase_modulator_fc(${sensitivity}, ${phase})
+  callbacks: !!python/tuple
+  - set_sensitivity(${s})
+  - set_phase(${p})
+parameters:
+- id: sensitivity
+  label: Sensitivity
+  dtype: double
+  read_only: true
+- id: phase
+  label: Phase
+  dtype: double
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(float)
+outputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
 cpp_templates:
-    includes: ['#include <gnuradio/analog/phase_modulator_fc.h>']
-    make: 'this->${id} = analog::phase_modulator_fc::make(${sensitivity});'
-    link: ['gnuradio-analog']
-    callbacks:
-    - set_sensitivity(${sensitivity})
-
+  includes: '#include <gnuradio/analog/phase_modulator_fc.h>'
+  declartions: analog::phase_modulator_fc::sptr ${id}
+  make: this->${id} = analog::phase_modulator_fc::make(${sensitivity}, ${phase})
+  callbacks: !!python/tuple
+  - set_sensitivity(${s})
+  - set_phase(${p})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief Phase modulator block\n     * \\ingroup modulators_blk\n     *\n
+  \    * \\details\n     * output = complex(cos(in*sensitivity), sin(in*sensitivity))\n
+  \    *\n     * Input stream 0: floats\n     * Output stream 0: complex\n     */"
+- // gr::analog::phase_modulator_fc::sptr
+- "/* \\brief Make a phase modulator block.\n       *\n       * \\param sensitivity
+  Phase change sensitivity of input amplitude.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_PHASE_MODULATOR_FC_H */
 file_format: 1

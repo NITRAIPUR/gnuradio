@@ -67,3 +67,16 @@ namespace gr {
 } /* namespace gr */
 
 #endif /* INCLUDED_ANALOG_PROBE_AVG_MAG_SQRD_C_H */
+
+/* ! BlockTool
+input_signature: make
+input_min_streams: 1
+input_max_streams: 1
+input_sizeof_stream_item: sizeof(gr_complex)
+output_signature: make
+output_min_streams: 0
+output_max_streams: 0
+output_sizeof_stream_item: 0
+message_input: 
+message_output: 
+EndTool !*/

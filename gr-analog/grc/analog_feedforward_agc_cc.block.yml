@@ -1,32 +1,29 @@
 id: analog_feedforward_agc_cc
-label: Feed Forward AGC
-flags: [ python, cpp ]
-
-parameters:
--   id: num_samples
-    label: Num Samples
-    dtype: int
-    default: '1024'
--   id: reference
-    label: Reference
-    dtype: real
-    default: '1.0'
-
-inputs:
--   domain: stream
-    dtype: complex
-
-outputs:
--   domain: stream
-    dtype: complex
-
+label: FEEDFORWARD AGC
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: analog.feedforward_agc_cc(${num_samples}, ${reference})
-
+  imports: from gnuradio import analog
+  make: analog.feedforward_agc_cc()
+inputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+outputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
 cpp_templates:
-    includes: ['#include <gnuradio/analog/feedforward_agc_cc.h>']
-    make: 'this->${id} = analog::feedforward_agc_cc::make(${num_samples}, ${reference});'
-    link: ['gnuradio-analog']
-
+  includes: '#include <gnuradio/analog/feedforward_agc_cc.h>'
+  declartions: analog::feedforward_agc_cc::sptr ${id}
+  make: this->${id} = analog::feedforward_agc_cc::make()
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief Non-causal AGC which computes required gain based on max\n
+  \    * absolute value over nsamples\n     * \\ingroup level_controllers_blk\n     */"
+- // gr::analog::feedforward_agc_cc::sptr
+- "/*!\n       * Build a complex valued feed-forward AGC loop block.\n       *\n       *
+  \\param nsamples number of samples to look ahead.\n       * \\param reference reference
+  value to adjust signal power to.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_GR_FEEDFORWARD_AGC_CC_H */
 file_format: 1

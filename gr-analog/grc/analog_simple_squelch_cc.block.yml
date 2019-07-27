@@ -1,36 +1,48 @@
 id: analog_simple_squelch_cc
-label: Simple Squelch
-flags: [ python, cpp ]
-
-parameters:
--   id: threshold
-    label: Threshold (dB)
-    dtype: real
--   id: alpha
-    label: Alpha
-    dtype: real
-
-inputs:
--   domain: stream
-    dtype: complex
-
-outputs:
--   domain: stream
-    dtype: complex
-
+label: SIMPLE SQUELCH
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: analog.simple_squelch_cc(${threshold}, ${alpha})
-    callbacks:
-    - set_threshold(${threshold})
-    - set_alpha(${alpha})
-
+  imports: from gnuradio import analog
+  make: analog.simple_squelch_cc(${unmuted}, ${threshold}, ${squelch_range})
+  callbacks: !!python/tuple
+  - set_alpha(${alpha})
+  - set_threshold(${decibels})
+parameters:
+- id: unmuted
+  label: Unmuted
+  dtype: bool
+  read_only: true
+- id: threshold
+  label: Threshold
+  dtype: double
+  read_only: true
+- id: squelch_range
+  label: Squelch_range
+  dtype: std::vector<float, std::allocator<float> >
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+outputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
 cpp_templates:
-    includes: ['#include <gnuradio/analog/simple_squelch_cc.h>']
-    make: 'this->${id} = analog::simple_squelch_cc::make(${threshold}, ${alpha});'
-    callbacks:
-    - set_threshold(${threshold})
-    - set_alpha(${alpha})
-    link: ['gnuradio-analog']
-
+  includes: '#include <gnuradio/analog/simple_squelch_cc.h>'
+  declartions: analog::simple_squelch_cc::sptr ${id}
+  make: this->${id} = analog::simple_squelch_cc::make(${unmuted}, ${threshold}, ${squelch_range})
+  callbacks: !!python/tuple
+  - set_alpha(${alpha})
+  - set_threshold(${decibels})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief simple squelch block based on average signal power and threshold
+  in dB.\n     * \\ingroup level_controllers_blk\n     */"
+- // gr::analog::simple_squelch_cc::sptr
+- "/*!\n       * \\brief Make a simple squelch block.\n       *\n       * \\param
+  threshold_db Threshold for muting.\n       * \\param alpha Gain parameter for the
+  running average filter.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_SIMPLE_SQUELCH_CC_H */
 file_format: 1

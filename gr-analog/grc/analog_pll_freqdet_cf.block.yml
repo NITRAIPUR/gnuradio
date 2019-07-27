@@ -1,42 +1,90 @@
 id: analog_pll_freqdet_cf
-label: PLL Freq Det
-flags: [ python, cpp ]
-
-parameters:
--   id: w
-    label: Loop Bandwidth
-    dtype: real
--   id: max_freq
-    label: Max Freq
-    dtype: real
--   id: min_freq
-    label: Min Freq
-    dtype: real
-
-inputs:
--   domain: stream
-    dtype: complex
-
-outputs:
--   domain: stream
-    dtype: float
-
+label: PLL FREQDET
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: analog.pll_freqdet_cf(${w}, ${max_freq}, ${min_freq})
-    callbacks:
-    - set_loop_bandwidth(${w})
-    - set_max_freq(${max_freq})
-    - set_min_freq(${min_freq})
-
+  imports: from gnuradio import analog
+  make: analog.pll_freqdet_cf(${get_loop_bandwidth}, ${get_damping_factor}, ${get_alpha},
+    ${get_beta}, ${get_frequency}, ${get_phase}, ${get_min_freq}, ${get_max_freq})
+  callbacks: !!python/tuple
+  - set_loop_bandwidth(${bw})
+  - set_damping_factor(${df})
+  - set_alpha(${alpha})
+  - set_beta(${beta})
+  - set_frequency(${freq})
+  - set_phase(${phase})
+  - set_min_freq(${freq})
+  - set_max_freq(${freq})
+parameters:
+- id: get_loop_bandwidth
+  label: Get_loop_bandwidth
+  dtype: float
+  read_only: true
+- id: get_damping_factor
+  label: Get_damping_factor
+  dtype: float
+  read_only: true
+- id: get_alpha
+  label: Get_alpha
+  dtype: float
+  read_only: true
+- id: get_beta
+  label: Get_beta
+  dtype: float
+  read_only: true
+- id: get_frequency
+  label: Get_frequency
+  dtype: float
+  read_only: true
+- id: get_phase
+  label: Get_phase
+  dtype: float
+  read_only: true
+- id: get_min_freq
+  label: Get_min_freq
+  dtype: float
+  read_only: true
+- id: get_max_freq
+  label: Get_max_freq
+  dtype: float
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+outputs:
+- domain: stream
+  dtype: sizeof(float)
 cpp_templates:
-    includes: ['#include <gnuradio/analog/pll_freqdet_cf.h>']
-    make: 'this->${id} = analog::pll_freqdet_cf::make(${w}, ${max_freq}, ${min_freq});'
-    callbacks:
-    - set_loop_bandwidth(${w})
-    - set_max_freq(${max_freq})
-    - set_min_freq(${min_freq})
-    link: ['gnuradio-analog']
-
-
+  includes: '#include <gnuradio/analog/pll_freqdet_cf.h>'
+  declartions: analog::pll_freqdet_cf::sptr ${id}
+  make: this->${id} = analog::pll_freqdet_cf::make(${get_loop_bandwidth}, ${get_damping_factor},
+    ${get_alpha}, ${get_beta}, ${get_frequency}, ${get_phase}, ${get_min_freq}, ${get_max_freq})
+  callbacks: !!python/tuple
+  - set_loop_bandwidth(${bw})
+  - set_damping_factor(${df})
+  - set_alpha(${alpha})
+  - set_beta(${beta})
+  - set_frequency(${freq})
+  - set_phase(${phase})
+  - set_min_freq(${freq})
+  - set_max_freq(${freq})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief Implements a PLL which locks to the input frequency and outputs\n
+  \    * an estimate of that frequency.  Useful for FM Demod.\n     * \\ingroup synchronizers_blk\n
+  \    *\n     * \\details\n     * Input stream 0: complex\n     * Output stream 0:
+  float\n     *\n     * This PLL locks onto a [possibly noisy] reference carrier on\n
+  \    * the input and outputs an estimate of that frequency in radians per sample.\n
+  \    * All settings max_freq and min_freq are in terms of radians per sample,\n
+  \    * NOT HERTZ.  The loop bandwidth determines the lock range and should be set\n
+  \    * around pi/200 -- 2pi/100.\n     * \\sa pll_refout_cc, pll_carriertracking_cc\n
+  \    */"
+- // gr::analog::pll_freqdet_cf::sptr
+- "/* \\brief Make PLL block that outputs the tracked signal's frequency.\n       *\n
+  \      * \\param loop_bw: control loop's bandwidth parameter.\n       * \\param
+  max_freq: maximum (normalized) frequency PLL will lock to.\n       * \\param min_freq:
+  minimum (normalized) frequency PLL will lock to.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_PLL_FREQDET_CF_H */
 file_format: 1

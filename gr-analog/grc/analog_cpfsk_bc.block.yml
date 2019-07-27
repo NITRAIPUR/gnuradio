@@ -1,40 +1,47 @@
 id: analog_cpfsk_bc
 label: CPFSK
-category: '[Core]/Deprecated'
-flags: [ python, cpp ]
-
-parameters:
--   id: k
-    label: K
-    dtype: real
--   id: amplitude
-    label: Amplitude
-    dtype: real
--   id: samples_per_symbol
-    label: Samples/Symbol
-    dtype: int
-    default: '2'
-
-inputs:
--   domain: stream
-    dtype: byte
-
-outputs:
--   domain: stream
-    dtype: complex
-
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: analog.cpfsk_bc(${k}, ${amplitude}, ${samples_per_symbol})
-    callbacks:
-    - set_amplitude(${amplitude})
-
+  imports: from gnuradio import analog
+  make: analog.cpfsk_bc(${amplitude}, ${freq}, ${phase})
+  callbacks: !!python/tuple
+  - set_amplitude(${amplitude})
+parameters:
+- id: amplitude
+  label: Amplitude
+  dtype: float
+  read_only: false
+- id: freq
+  label: Freq
+  dtype: float
+  read_only: true
+- id: phase
+  label: Phase
+  dtype: float
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(char)
+outputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
 cpp_templates:
-    includes: ['#include <gnuradio/analog/cpfsk_bc.h>']
-    make: 'this->${id} = analog::cpfsk_bc::make(${k}, ${amplitude}, ${samples_per_symbol});'
-    callbacks:
-    - set_amplitude(${amplitude})
-    link: ['gnuradio-analog']
-
-
+  includes: '#include <gnuradio/analog/cpfsk_bc.h>'
+  declartions: analog::cpfsk_bc::sptr ${id}
+  make: this->${id} = analog::cpfsk_bc::make(${amplitude}, ${freq}, ${phase})
+  callbacks: !!python/tuple
+  - set_amplitude(${amplitude})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief Perform continuous phase 2-level frequency shift keying modulation\n
+  \    * on an input stream of unpacked bits.\n     * \\ingroup modulators_blk\n     *
+  \\ingroup deprecated_blk\n     */"
+- // gr::analog::cpfsk_bc::sptr
+- "/*!\n       * \\brief Make a CPFSK block.\n       *\n       * \\param k modulation
+  index\n       * \\param ampl output amplitude\n       * \\param samples_per_sym\tnumber
+  of output samples per input bit\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_CPFSK_BC_H */
 file_format: 1

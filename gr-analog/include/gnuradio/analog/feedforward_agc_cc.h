@@ -53,3 +53,16 @@ namespace gr {
 } /* namespace gr */
 
 #endif /* INCLUDED_GR_FEEDFORWARD_AGC_CC_H */
+
+/* ! BlockTool
+input_signature: make
+input_min_streams: 1
+input_max_streams: 1
+input_sizeof_stream_item: sizeof(gr_complex)
+output_signature: make
+output_min_streams: 1
+output_max_streams: 1
+output_sizeof_stream_item: sizeof(gr_complex)
+message_input: 
+message_output: 
+EndTool !*/

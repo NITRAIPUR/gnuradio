@@ -1,48 +1,60 @@
 id: analog_quadrature_demod_cf
-label: Quadrature Demod
-flags: [ python ]
-
-parameters:
--   id: gain
-    label: Gain
-    dtype: real
-    default: samp_rate/(2*math.pi*fsk_deviation_hz/8.0)
-
-inputs:
--   domain: stream
-    dtype: complex
-
-outputs:
--   domain: stream
-    dtype: float
-
+label: QUADRATURE DEMOD
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: |-
-        from gnuradio import analog
-        import math
-    make: analog.quadrature_demod_cf(${gain})
-    callbacks:
-    - set_gain(${gain})
-
-documentation: |-
-    This can be used to demod FM, FSK, GMSK, etc.  The input is complex
-    baseband, output is the signal frequency in relation to the sample
-    rate, multiplied with the gain.
-
-    Mathematically, this block calculates the product of the one-sample
-    delayed input and the conjugate undelayed signal, and then calculates
-    the argument of the resulting complex number:
-
-    y[n] = \mathrm{arg}\left(x[n] \, \bar x [n-1]\right).
-
-    Let x be a complex sinusoid with amplitude A>0, (absolute)
-    frequency f\in\mathbb R and phase \phi_0\in[0;2\pi] sampled at
-    f_s>0 so, without loss of generality,
-
-    x[n]= A e^{j2\pi( \frac f{f_s} n + \phi_0)}\f
-
-    then
-
-    y[n] = \mathrm{arg}\left(A e^{j2\pi\left( \frac f{f_s} n + \phi_0\right)} \overline{A e^{j2\pi( \frac f{f_s} (n-1) + \phi_0)}}\right)\ = \mathrm{arg}\left(A^2 e^{j2\pi\left( \frac f{f_s} n + \phi_0\right)} e^{-j2\pi( \frac f{f_s} (n-1) + \phi_0)}\right)\ = \mathrm{arg}\left( A^2 e^{j2\pi\left( \frac f{f_s} n + \phi_0 - \frac f{f_s} (n-1) - \phi_0\right)}\right)\ = \mathrm{arg}\left( A^2 e^{j2\pi\left( \frac f{f_s} n - \frac f{f_s} (n-1)\right)}\right)\ = \mathrm{arg}\left( A^2 e^{j2\pi\left( \frac f{f_s} \left(n-(n-1)\right)\right)}\right)\ = \mathrm{arg}\left( A^2 e^{j2\pi \frac f{f_s}}\right) \intertext{$A$ is real, so is $A^2$ and hence only \textit{scales}, therefore $\mathrm{arg}(\cdot)$ is invariant:} = \mathrm{arg}\left(e^{j2\pi \frac f{f_s}}\right)\= \frac f{f_s}\\
-
+  imports: from gnuradio import analog
+  make: analog.quadrature_demod_cf(${gain})
+  callbacks: !!python/tuple
+  - set_gain(${gain})
+parameters:
+- id: gain
+  label: Gain
+  dtype: float
+  read_only: false
+inputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+outputs:
+- domain: stream
+  dtype: sizeof(float)
+cpp_templates:
+  includes: '#include <gnuradio/analog/quadrature_demod_cf.h>'
+  declartions: analog::quadrature_demod_cf::sptr ${id}
+  make: this->${id} = analog::quadrature_demod_cf::make(${gain})
+  callbacks: !!python/tuple
+  - set_gain(${gain})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief quadrature demodulator: complex in, float out\n     * \\ingroup
+  modulators_blk\n     *\n     * \\details\n     * This can be used to demod FM, FSK,
+  GMSK, etc.  The input is complex\n     * baseband, output is the signal frequency
+  in relation to the sample\n     * rate, multiplied with the gain.\n     *\n     *
+  Mathematically, this block calculates the product of the one-sample\n     * delayed
+  input and the conjugate undelayed signal, and then calculates\n     * the argument
+  of the resulting complex number:\n     *\n     * \\f$y[n] = \\mathrm{arg}\\left(x[n]
+  \\, \\bar x [n-1]\\right)\\f$.\n     * \n     * Let \\f$x\\f$ be a complex sinusoid
+  with amplitude \\f$A>0\\f$, (absolute)\n     * frequency \\f$f\\in\\mathbb R\\f$
+  and phase \\f$\\phi_0\\in[0;2\\pi]\\f$ sampled at\n     * \\f$f_s>0\\f$ so, without
+  loss of generality,\n     *\n     * \\f$x[n]= A e^{j2\\pi( \\frac f{f_s} n + \\phi_0)}\\f$\n
+  \    *\n     * then\n     *\n     * \\f{align*}{ y[n] &= \\mathrm{arg}\\left(A e^{j2\\pi\\left(
+  \\frac f{f_s} n + \\phi_0\\right)} \\overline{A e^{j2\\pi( \\frac f{f_s} (n-1) +
+  \\phi_0)}}\\right)\\\\\n     *  & = \\mathrm{arg}\\left(A^2 e^{j2\\pi\\left( \\frac
+  f{f_s} n + \\phi_0\\right)} e^{-j2\\pi( \\frac f{f_s} (n-1) + \\phi_0)}\\right)\\\\\n
+  \    *  & = \\mathrm{arg}\\left( A^2 e^{j2\\pi\\left( \\frac f{f_s} n + \\phi_0
+  - \\frac f{f_s} (n-1) - \\phi_0\\right)}\\right)\\\\\n     *  & = \\mathrm{arg}\\left(
+  A^2 e^{j2\\pi\\left( \\frac f{f_s} n - \\frac f{f_s} (n-1)\\right)}\\right)\\\\\n
+  \    *  & = \\mathrm{arg}\\left( A^2 e^{j2\\pi\\left( \\frac f{f_s} \\left(n-(n-1)\\right)\\right)}\\right)\\\\\n
+  \    *  & = \\mathrm{arg}\\left( A^2 e^{j2\\pi \\frac f{f_s}}\\right) \\intertext{$A$
+  is real, so is $A^2$ and hence only \\textit{scales}, therefore $\\mathrm{arg}(\\cdot)$
+  is invariant:} &= \\mathrm{arg}\\left(e^{j2\\pi \\frac f{f_s}}\\right)\\\\\n     *
+  \ &= \\frac f{f_s}\\\\\n     *  &&\\blacksquare \n     * \\f}\n     */"
+- // gr::analog::quadrature_demod_cf::sptr
+- "/* \\brief Make a quadrature demodulator block.\n       *\n       * \\param gain
+  Gain setting to adjust the output amplitude. Set\n       *             based on
+  converting the phase difference between\n       *             samples to a nominal
+  output value.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_QUADRATURE_DEMOD_CF_H */
 file_format: 1

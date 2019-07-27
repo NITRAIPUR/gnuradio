@@ -1,0 +1,49 @@
+id: analog_squelch_base_cc
+label: SQUELCH BASE
+category: '[Analog]'
+flags: '[python, cpp]'
+templates:
+  imports: from gnuradio import analog
+  make: analog.squelch_base_cc(${ramp}, ${gate}, ${unmuted}, ${squelch_range})
+  callbacks: !!python/tuple
+  - set_ramp(${ramp})
+  - set_gate(${gate})
+parameters:
+- id: ramp
+  label: Ramp
+  dtype: int
+  read_only: false
+- id: gate
+  label: Gate
+  dtype: bool
+  read_only: false
+- id: unmuted
+  label: Unmuted
+  dtype: bool
+  read_only: true
+- id: squelch_range
+  label: Squelch_range
+  dtype: std::vector<float, std::allocator<float> >
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(float)
+outputs:
+- domain: stream
+  dtype: sizeof(float)
+cpp_templates:
+  includes: '#include <gnuradio/analog/squelch_base_cc.h>'
+  declartions: analog::squelch_base_cc::sptr ${id}
+  make: this->${id} = analog::squelch_base_cc::make(${ramp}, ${gate}, ${unmuted},
+    ${squelch_range})
+  callbacks: !!python/tuple
+  - set_ramp(${ramp})
+  - set_gate(${gate})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief basic squelch block; to be subclassed for other squelches.\n
+  \    * \\ingroup level_blk\n     */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_SQUELCH_BASE_CC_H */
+file_format: 1

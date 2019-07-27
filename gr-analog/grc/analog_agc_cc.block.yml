@@ -1,0 +1,57 @@
+id: analog_agc_cc
+label: AGC
+category: '[Analog]'
+flags: '[python, cpp]'
+templates:
+  imports: from gnuradio import analog
+  make: analog.agc_cc(${rate}, ${reference}, ${gain}, ${max_gain})
+  callbacks: !!python/tuple
+  - set_rate(${rate})
+  - set_reference(${reference})
+  - set_gain(${gain})
+  - set_max_gain(${max_gain})
+parameters:
+- id: rate
+  label: Rate
+  dtype: float
+  read_only: false
+- id: reference
+  label: Reference
+  dtype: float
+  read_only: false
+- id: gain
+  label: Gain
+  dtype: float
+  read_only: false
+- id: max_gain
+  label: Max_gain
+  dtype: float
+  read_only: false
+inputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+outputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+cpp_templates:
+  includes: '#include <gnuradio/analog/agc_cc.h>'
+  declartions: analog::agc_cc::sptr ${id}
+  make: this->${id} = analog::agc_cc::make(${rate}, ${reference}, ${gain}, ${max_gain})
+  callbacks: !!python/tuple
+  - set_rate(${rate})
+  - set_reference(${reference})
+  - set_gain(${gain})
+  - set_max_gain(${max_gain})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief high performance Automatic Gain Control class\n     * \\ingroup
+  level_controllers_blk\n     *\n     * \\details\n     * For Power the absolute value
+  of the complex number is used.\n     */"
+- // gr::analog::agc_cc::sptr
+- "/*!\n       * Build a complex value AGC loop block.\n       *\n       * \\param
+  rate the update rate of the loop.\n       * \\param reference reference value to
+  adjust signal power to.\n       * \\param gain initial gain value.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_AGC_CC_H */
+file_format: 1

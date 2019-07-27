@@ -1,57 +1,73 @@
 id: analog_ctcss_squelch_ff
-label: CTCSS Squelch
-flags: [ python, cpp ]
-
-parameters:
--   id: rate
-    label: Sampling Rate (Hz)
-    dtype: real
-    default: samp_rate
--   id: freq
-    label: Tone Frequency
-    dtype: real
-    default: '100.0'
--   id: level
-    label: Level
-    dtype: real
-    default: '0.01'
--   id: len
-    label: Length
-    dtype: int
-    default: '0'
--   id: ramp
-    label: Ramp
-    dtype: int
-    default: '0'
--   id: gate
-    label: Gate
-    dtype: bool
-    default: 'False'
-
-inputs:
--   domain: stream
-    dtype: float
-
-outputs:
--   domain: stream
-    dtype: float
-
+label: CTCSS SQUELCH
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: analog.ctcss_squelch_ff(${rate}, ${freq}, ${level}, ${len}, ${ramp}, ${gate})
-    callbacks:
-    - set_level(${level})
-    - set_frequency(${freq})
-
+  imports: from gnuradio import analog
+  make: analog.ctcss_squelch_ff(${squelch_range}, ${level}, ${len}, ${frequency},
+    ${ramp}, ${gate}, ${unmuted})
+  callbacks: !!python/tuple
+  - set_level(${level})
+  - set_frequency(${frequency})
+  - set_ramp(${ramp})
+  - set_gate(${gate})
+parameters:
+- id: squelch_range
+  label: Squelch_range
+  dtype: std::vector<float, std::allocator<float> >
+  read_only: true
+- id: level
+  label: Level
+  dtype: float
+  read_only: false
+- id: len
+  label: Len
+  dtype: int
+  read_only: true
+- id: frequency
+  label: Frequency
+  dtype: float
+  read_only: false
+- id: ramp
+  label: Ramp
+  dtype: int
+  read_only: false
+- id: gate
+  label: Gate
+  dtype: bool
+  read_only: false
+- id: unmuted
+  label: Unmuted
+  dtype: bool
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(float)
+outputs:
+- domain: stream
+  dtype: sizeof(float)
 cpp_templates:
-    includes: ['#include <gnuradio/analog/ctcss_squelch_ff.h>']
-    make: 'this->${id} = analog::ctcss_squelch_ff::make(${rate}, ${freq}, ${level}, ${len}, ${ramp}, ${gate});'
-    callbacks:
-    - set_level(${level})
-    - set_frequency(${freq})
-    link: ['gnuradio-analog']
-    translations:
-        'True': 'true'
-        'False': 'false'
-
+  includes: '#include <gnuradio/analog/ctcss_squelch_ff.h>'
+  declartions: analog::ctcss_squelch_ff::sptr ${id}
+  make: this->${id} = analog::ctcss_squelch_ff::make(${squelch_range}, ${level}, ${len},
+    ${frequency}, ${ramp}, ${gate}, ${unmuted})
+  callbacks: !!python/tuple
+  - set_level(${level})
+  - set_frequency(${frequency})
+  - set_ramp(${ramp})
+  - set_gate(${gate})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief gate or zero output if CTCSS tone not present\n     * \\ingroup
+  level_controllers_blk\n     */"
+- // gr::analog::ctcss_squelch_ff::sptr
+- "/*!\n       * \\brief Make CTCSS tone squelch block.\n       *\n       * \\param
+  rate gain of the internal frequency filters.\n       * \\param freq frequency value
+  to use as the squelch tone.\n       * \\param level threshold level for the squelch
+  tone.\n       * \\param len length of the frequency filters.\n       * \\param ramp
+  sets response characteristic.\n       * \\param gate if true, no output if no squelch
+  tone.\n       *             if false, output 0's if no squelch tone.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_CTCSS_SQUELCH_FF_H */
 file_format: 1

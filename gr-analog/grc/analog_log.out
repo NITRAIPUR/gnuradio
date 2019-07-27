@@ -1,0 +1,153 @@
+ERROR:root:Log for Exception raised for the header: agc.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 286, in parse_directory
+    run_blocktool(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/base.py", line 123, in run_blocktool
+    module.run_blocktool()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 278, in run_blocktool
+    self.get_header_info()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 174, in get_header_info
+    make_func = main_class.member_functions(function=query_make,
+UnboundLocalError: local variable 'main_class' referenced before assignment
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/agc2.h" ... 
+ERROR:root:Log for Exception raised for the header: agc2.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 286, in parse_directory
+    run_blocktool(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/base.py", line 123, in run_blocktool
+    module.run_blocktool()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 278, in run_blocktool
+    self.get_header_info()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 174, in get_header_info
+    make_func = main_class.member_functions(function=query_make,
+UnboundLocalError: local variable 'main_class' referenced before assignment
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/agc2_cc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/agc2_ff.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/agc3_cc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/agc_cc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/agc_ff.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/api.h" ... 
+ERROR:root:Log for Exception raised for the header: api.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 114, in get_header_info
+    ns = global_namespace.namespace(gr)
+  File "/usr/local/lib/python3.6/dist-packages/pygccxml/declarations/namespace.py", line 123, in namespace
+    recursive=recursive)
+  File "/usr/local/lib/python3.6/dist-packages/pygccxml/declarations/scopedef.py", line 484, in _find_single
+    found = matcher.get_single(decl_matcher, decls, False)
+  File "/usr/local/lib/python3.6/dist-packages/pygccxml/declarations/scopedef.py", line 87, in get_single
+    raise runtime_errors.declaration_not_found_t(decl_matcher)
+pygccxml.declarations.runtime_errors.declaration_not_found_t: Unable to find declaration. Matcher: [(decl type==namespace_t) and (name==gr)]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 286, in parse_directory
+    run_blocktool(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/base.py", line 123, in run_blocktool
+    module.run_blocktool()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 278, in run_blocktool
+    self.get_header_info()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 130, in get_header_info
+    'Invalid namespace format in the block header file')
+gnuradio.blocktool.core.base.BlockToolException: Invalid namespace format in the block header file
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/cpfsk_bc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/cpm.h" ... 
+ERROR:root:Log for Exception raised for the header: cpm.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 287, in parse_directory
+    yaml_generator(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 166, in yaml_generator
+    max_input_port = self.parsed_data['io_signature']['input']['max_streams']
+TypeError: list indices must be integers or slices, not str
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/ctcss_squelch_ff.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/dpll_bb.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/fastnoise_source.h" ... 
+ERROR:root:Log for Exception raised for the header: fastnoise_source.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 286, in parse_directory
+    run_blocktool(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/base.py", line 123, in run_blocktool
+    module.run_blocktool()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 278, in run_blocktool
+    self.get_header_info()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 174, in get_header_info
+    make_func = main_class.member_functions(function=query_make,
+UnboundLocalError: local variable 'main_class' referenced before assignment
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/feedforward_agc_cc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/fmdet_cf.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/frequency_modulator_fc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/noise_source.h" ... 
+ERROR:root:Log for Exception raised for the header: noise_source.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 286, in parse_directory
+    run_blocktool(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/base.py", line 123, in run_blocktool
+    module.run_blocktool()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 278, in run_blocktool
+    self.get_header_info()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 174, in get_header_info
+    make_func = main_class.member_functions(function=query_make,
+UnboundLocalError: local variable 'main_class' referenced before assignment
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/noise_type.h" ... 
+ERROR:root:Log for Exception raised for the header: noise_type.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 286, in parse_directory
+    run_blocktool(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/base.py", line 123, in run_blocktool
+    module.run_blocktool()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 278, in run_blocktool
+    self.get_header_info()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 174, in get_header_info
+    make_func = main_class.member_functions(function=query_make,
+UnboundLocalError: local variable 'main_class' referenced before assignment
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/phase_modulator_fc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/pll_carriertracking_cc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/pll_freqdet_cf.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/pll_refout_cc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/probe_avg_mag_sqrd_c.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/probe_avg_mag_sqrd_cf.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/probe_avg_mag_sqrd_f.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/pwr_squelch_cc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/pwr_squelch_ff.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/quadrature_demod_cf.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/rail_ff.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/random_uniform_source.h" ... 
+ERROR:root:Log for Exception raised for the header: random_uniform_source.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 286, in parse_directory
+    run_blocktool(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/base.py", line 123, in run_blocktool
+    module.run_blocktool()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 278, in run_blocktool
+    self.get_header_info()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 174, in get_header_info
+    make_func = main_class.member_functions(function=query_make,
+UnboundLocalError: local variable 'main_class' referenced before assignment
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/sig_source.h" ... 
+ERROR:root:Log for Exception raised for the header: sig_source.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 286, in parse_directory
+    run_blocktool(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/base.py", line 123, in run_blocktool
+    module.run_blocktool()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 278, in run_blocktool
+    self.get_header_info()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 174, in get_header_info
+    make_func = main_class.member_functions(function=query_make,
+UnboundLocalError: local variable 'main_class' referenced before assignment
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/sig_source_waveform.h" ... 
+ERROR:root:Log for Exception raised for the header: sig_source_waveform.h
+Traceback (most recent call last):
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/parseheader.py", line 286, in parse_directory
+    run_blocktool(self)
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/cli/base.py", line 123, in run_blocktool
+    module.run_blocktool()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 278, in run_blocktool
+    self.get_header_info()
+  File "/home/aruroxx31/GNURadioGsoc/gsoc/lib/python3.6/dist-packages/gnuradio/blocktool/core/parseheader.py", line 174, in get_header_info
+    make_func = main_class.member_functions(function=query_make,
+UnboundLocalError: local variable 'main_class' referenced before assignment
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/simple_squelch_cc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/squelch_base_cc.h" ... 
+INFO:pygccxml.cxx_parser:Parsing source file "/home/aruroxx31/GNURadioGsoc/gsoc/src/gnuradio/gr-analog/include/gnuradio/analog/squelch_base_ff.h" ... 

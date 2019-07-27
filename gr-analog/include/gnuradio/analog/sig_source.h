@@ -110,3 +110,16 @@ template<class T>
 } /* namespace gr */
 
 #endif /* SIG_SOURCE_H */
+
+/* ! BlockTool
+input_signature: make
+input_min_streams: 0
+input_max_streams: 0
+input_sizeof_stream_item: 0
+output_signature: make
+output_min_streams: 1
+output_max_streams: 1
+output_sizeof_stream_item: sizeof(T)
+message_input: freq
+message_output: 
+EndTool !*/

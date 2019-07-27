@@ -1,36 +1,43 @@
 id: analog_rail_ff
-label: Rail
-flags: [ python, cpp ]
-
-parameters:
--   id: lo
-    label: Low clipping
-    dtype: real
--   id: hi
-    label: Hi clipping
-    dtype: real
-
-inputs:
--   domain: stream
-    dtype: float
-
-outputs:
--   domain: stream
-    dtype: float
-
+label: RAIL
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: analog.rail_ff(${lo}, ${hi})
-    callbacks:
-    - set_lo(${lo})
-    - set_hi(${hi})
-
+  imports: from gnuradio import analog
+  make: analog.rail_ff(${lo}, ${hi})
+  callbacks: !!python/tuple
+  - set_lo(${lo})
+  - set_hi(${hi})
+parameters:
+- id: lo
+  label: Lo
+  dtype: float
+  read_only: false
+- id: hi
+  label: Hi
+  dtype: float
+  read_only: false
+inputs:
+- domain: stream
+  dtype: sizeof(float)
+outputs:
+- domain: stream
+  dtype: sizeof(float)
 cpp_templates:
-    includes: ['#include <gnuradio/analog/rail_ff.h>']
-    make: 'this->${id} = analog::rail_ff::make(${lo}, ${hi});'
-    callbacks:
-    - set_lo(${lo})
-    - set_hi(${hi})
-    link: ['gnuradio-analog']
-
+  includes: '#include <gnuradio/analog/rail_ff.h>'
+  declartions: analog::rail_ff::sptr ${id}
+  make: this->${id} = analog::rail_ff::make(${lo}, ${hi})
+  callbacks: !!python/tuple
+  - set_lo(${lo})
+  - set_hi(${hi})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief clips input values to min, max\n     * \\ingroup level_controllers_blk\n
+  \    */"
+- // gr::analog::rail_ff::sptr
+- "/*!\n       * Build a rail block.\n       *\n       * \\param lo the low value
+  to clip to.\n       * \\param hi the high value to clip to.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_RAIL_FF_H */
 file_format: 1

@@ -1,34 +1,50 @@
 id: analog_dpll_bb
-label: Detect Peak
-flags: [ python, cpp ]
-
-parameters:
--   id: period
-    label: Period
-    dtype: real
--   id: gain
-    label: Gain
-    dtype: real
-
-inputs:
--   domain: stream
-    dtype: byte
-
-outputs:
--   domain: stream
-    dtype: byte
-
+label: DPLL
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: analog.dpll_bb(${period}, ${gain})
-    callbacks:
-    - set_gain(${gain})
-
+  imports: from gnuradio import analog
+  make: analog.dpll_bb(${gain}, ${freq}, ${phase}, ${decision_threshold})
+  callbacks: !!python/tuple
+  - set_gain(${gain})
+  - set_decision_threshold(${thresh})
+parameters:
+- id: gain
+  label: Gain
+  dtype: float
+  read_only: false
+- id: freq
+  label: Freq
+  dtype: float
+  read_only: true
+- id: phase
+  label: Phase
+  dtype: float
+  read_only: true
+- id: decision_threshold
+  label: Decision_threshold
+  dtype: float
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(char)
+outputs:
+- domain: stream
+  dtype: sizeof(char)
 cpp_templates:
-    includes: ['#include <gnuradio/analog/dpll_bb.h>']
-    make: 'this->${id} = analog::dpll_bb::make(${period}, ${gain});'
-    callbacks:
-    - set_gain(${gain})
-    link: ['gnuradio-analog']
-
+  includes: '#include <gnuradio/analog/dpll_bb.h>'
+  declartions: analog::dpll_bb::sptr ${id}
+  make: this->${id} = analog::dpll_bb::make(${gain}, ${freq}, ${phase}, ${decision_threshold})
+  callbacks: !!python/tuple
+  - set_gain(${gain})
+  - set_decision_threshold(${thresh})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief Detect the peak of a signal\n     * \\ingroup peak_detectors_blk\n
+  \    *\n     * \\details\n     * If a peak is detected, this block outputs a 1,\n
+  \    * or it outputs 0's.\n     */"
+- // gr::analog::dpll_bb::sptr
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_DPLL_BB_H */
 file_format: 1

@@ -1,0 +1,56 @@
+id: analog_probe_avg_mag_sqrd_cf
+label: PROBE AVG MAG SQRD
+category: '[Analog]'
+flags: '[python, cpp]'
+templates:
+  imports: from gnuradio import analog
+  make: analog.probe_avg_mag_sqrd_cf(${unmuted}, ${level}, ${threshold}, ${reset})
+  callbacks: !!python/tuple
+  - set_alpha(${alpha})
+  - set_threshold(${decibels})
+parameters:
+- id: unmuted
+  label: Unmuted
+  dtype: bool
+  read_only: true
+- id: level
+  label: Level
+  dtype: double
+  read_only: true
+- id: threshold
+  label: Threshold
+  dtype: double
+  read_only: true
+- id: reset
+  label: Reset
+  dtype: void
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+outputs:
+- domain: stream
+  dtype: sizeof(float)
+cpp_templates:
+  includes: '#include <gnuradio/analog/probe_avg_mag_sqrd_cf.h>'
+  declartions: analog::probe_avg_mag_sqrd_cf::sptr ${id}
+  make: this->${id} = analog::probe_avg_mag_sqrd_cf::make(${unmuted}, ${level}, ${threshold},
+    ${reset})
+  callbacks: !!python/tuple
+  - set_alpha(${alpha})
+  - set_threshold(${decibels})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief compute avg magnitude squared.\n     * \\ingroup measurement_tools_blk\n
+  \    *\n     * \\details\n     * Input stream 0: complex\n     * Output stream 0:
+  float\n     *\n     * Compute a running average of the magnitude squared of the
+  the\n     * input. The level and indication as to whether the level exceeds\n     *
+  threshold can be retrieved with the level and unmuted\n     * accessors.\n     */"
+- // gr::analog::probe_avg_mag_sqrd_cf::sptr
+- "/*!\n       * \\brief Make a block that computes avg magnitude squared.\n       *\n
+  \      * \\param threshold_db Threshold for muting.\n       * \\param alpha Gain
+  parameter for the running average filter.\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_PROBE_AVG_MAG_SQRD_CF_H */
+file_format: 1

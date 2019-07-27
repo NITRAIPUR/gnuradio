@@ -1,32 +1,60 @@
 id: analog_fmdet_cf
-label: FM Detector
-flags: [ python ]
-
-parameters:
--   id: samplerate
-    label: Sample rate
-    dtype: real
--   id: freq_low
-    label: Lowest frequency
-    dtype: real
--   id: freq_high
-    label: Highest frequency
-    dtype: real
--   id: scl
-    label: Scale factor
-    dtype: real
-
-inputs:
--   domain: stream
-    dtype: complex
-
-outputs:
--   domain: stream
-    dtype: float
-
+label: FMDET
+category: '[Analog]'
+flags: '[python, cpp]'
 templates:
-    imports: from gnuradio import analog
-    make: "analog.fmdet_cf(\n\tsamplerate=${samplerate},\n\tfreq_low=${freq_low},\n\
-        \tfreq_high=${freq_high},\n\tscl=${scl}\n)"
-
+  imports: from gnuradio import analog
+  make: analog.fmdet_cf(${freq}, ${freq_high}, ${freq_low}, ${scale}, ${bias})
+  callbacks: !!python/tuple
+  - set_scale(${scl})
+  - set_freq_range(${freq_low}, ${freq_high})
+parameters:
+- id: freq
+  label: Freq
+  dtype: float
+  read_only: true
+- id: freq_high
+  label: Freq_high
+  dtype: float
+  read_only: false
+- id: freq_low
+  label: Freq_low
+  dtype: float
+  read_only: false
+- id: scale
+  label: Scale
+  dtype: float
+  read_only: true
+- id: bias
+  label: Bias
+  dtype: float
+  read_only: true
+inputs:
+- domain: stream
+  dtype: sizeof(gr_complex)
+outputs:
+- domain: stream
+  dtype: sizeof(float)
+cpp_templates:
+  includes: '#include <gnuradio/analog/fmdet_cf.h>'
+  declartions: analog::fmdet_cf::sptr ${id}
+  make: this->${id} = analog::fmdet_cf::make(${freq}, ${freq_high}, ${freq_low}, ${scale},
+    ${bias})
+  callbacks: !!python/tuple
+  - set_scale(${scl})
+  - set_freq_range(${freq_low}, ${freq_high})
+  link: gnuradio-analog
+documentation:
+- "/*!\n     * \\brief Implements an IQ slope detector\n     * \\ingroup modulators_blk\n
+  \    *\n     * \\details\n     * input: stream of complex; output: stream of floats\n
+  \    *\n     * This implements a limiting slope detector. The limiter is in\n     *
+  the normalization by the magnitude of the sample\n     */"
+- // gr::analog::fmdet_cf::sptr
+- "/*!\n       * \\brief Make FM detector block.\n       *\n       * \\param samplerate
+  sample rate of signal (is not used; to be removed)\n       * \\param freq_low lowest
+  frequency of signal (Hz)\n       * \\param freq_high highest frequency of signal
+  (Hz)\n       * \\param scl scale factor\n       */"
+- /* namespace analog */
+- /* namespace gr */
+- /* INCLUDED_ANALOG_FMDET_CF_H */
 file_format: 1
